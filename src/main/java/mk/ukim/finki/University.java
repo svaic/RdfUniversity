@@ -3,16 +3,27 @@ package mk.ukim.finki;
 public class University {
     String name;
     String image;
-    String longitute;
-    String latitude;
+    double lat;
+    double lon;
     String place;
 
-    public University(String name, String image, String longitute, String latitude, String place) {
-        this.name = name;
-        this.image = image;
-        this.longitute = longitute;
-        this.latitude = latitude;
-        this.place = place;
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public University() {
     }
 
     public String getName() {
@@ -29,22 +40,6 @@ public class University {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getLongitute() {
-        return longitute;
-    }
-
-    public void setLongitute(String longitute) {
-        this.longitute = longitute;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
     }
 
     public String getPlace() {

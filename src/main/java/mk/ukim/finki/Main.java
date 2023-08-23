@@ -18,7 +18,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class Main {
     public static void main(String[] args) {
-        var un = executeQuery();
+        List<University> un = executeQuery();
         mongo(un);
     }
 
@@ -59,22 +59,37 @@ public class Main {
                 String image = solution.get("img").toString();
                 String place = solution.get("place").toString();
 
-                University university = new University(name, longitude, latitude, image, place);
+                University university = new University();
+                university.setName(name);
+                university.setImage(image);
+                university.setPlace(place);
+                university.setLat(formatLocation(latitude));
+                university.setLon(formatLocation(longitude));
+
                 universities.add(university);
 
-                System.out.println("Place: " + place);
+                //System.out.println("Place: " + place);
                 System.out.println("Longitude: " + longitude);
                 System.out.println("Latitude: " + latitude);
-                System.out.println("Image: " + image);
-                System.out.println("-----------------------");
+                //System.out.println("Image: " + image);
+                //System.out.println("-----------------------");
             }
         }
 
         return universities;
     }
 
+    private static double formatLocation(String location) {
+        try {
+            return Double.parseDouble(location.split("\\^")[0]);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
     public static void mongo(List<University> universities) {
-        ConnectionString connectionString = new ConnectionString("");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:pass123@banks.qosr0.mongodb.net/banks?retryWrites=true&w=majority");
 
         CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
 
